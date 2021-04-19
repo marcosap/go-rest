@@ -27,3 +27,12 @@ func (a *API) Start() {
 		log.Printf("API error: %s", err)
 	}
 }
+
+func (a *API) AddResource(resource ApiResource) {
+
+	routes := resource.GetRoutes()
+
+	for _, route := range routes {
+		a.router.HandleFunc(route.Url, route.Handler).Methods(route.Method)
+	}
+}
